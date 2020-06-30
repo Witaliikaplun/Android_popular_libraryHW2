@@ -22,6 +22,7 @@ public class RxsActivity extends AppCompatActivity {
     Button registrrx;
     Button unregistrrx;
     Subscription msubscription;
+    Disposable disposable;
     public static final String MY_DEBUG = "my_debug";
 
     @Override
@@ -37,7 +38,7 @@ public class RxsActivity extends AppCompatActivity {
         final Observer<Long> observer = new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                RxsActivity.this.disposable = d;
             }
 
             @Override
@@ -56,11 +57,6 @@ public class RxsActivity extends AppCompatActivity {
             }
         };
 
-
-
-
-
-
         registrrx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +67,7 @@ public class RxsActivity extends AppCompatActivity {
         unregistrrx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //observable.unsubscribeOn()
+                disposable.dispose();
             }
         });
     }
